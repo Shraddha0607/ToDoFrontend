@@ -1,14 +1,24 @@
 import React from 'react'
 import ToDoItem from './ToDoItem'
-import { getAll } from './ToDoService'
+import { deleteItem, getAll } from './ToDoService'
 import { IToDoItem } from './ToDoItem.model';
 
 let list = getAll();
 
 function listItemPrepare(item: IToDoItem) {
-    return <ToDoItem
-        todoItem = {item}
-    />
+
+    const OnClickHandle =()=>{
+       console.log(item.listid);
+        deleteItem(item.listid);
+    }
+    return (
+        <div>
+            <ToDoItem
+                todoItem={item}
+            />
+            <button onClick={OnClickHandle}>Delete</button>
+        </div>
+    )
 }
 
 const ToDoList = () => {

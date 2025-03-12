@@ -1,5 +1,6 @@
 export interface IToDoItem {
-    // key: number;
+    listid: number;
+
     title: string;
     description: string;
 }
