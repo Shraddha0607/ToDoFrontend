@@ -7,17 +7,7 @@ const NewAddTask = () =>{
     const [title, setTitle] = useState('');
     const[description, setDescription] = useState('');
 
-    // event handle to update state variable
-    const handleTitleChanger = (event) => {
-        // console.log(event.target.value);
-
-        setTitle(event.target.value);
-    };
-
-    const handleDescriptionChanger = (event) => {
-        // console.log(event.target.value);
-        setDescription(event.target.value);
-    }
+    
 
     const handleSubmit = (event) => {
         console.log(title );
@@ -27,8 +17,9 @@ const NewAddTask = () =>{
     
   return (
     <div className='taskContainer'>
-      <input type="text" placeholder='add title' value={title} onChange={handleTitleChanger}></input> 
-      <input type="text" placeholder='add description' onChange={handleDescriptionChanger} value={description}></input> 
+      <input type="text" placeholder='add title' value={title} onChange={ (event) => {setTitle(event.target.value)}}></input> 
+
+      <input type="text" placeholder='add description' value={description} onChange={ (event) => {setDescription(event.target.value)}} ></input> 
       
       <button onClick={handleSubmit}>Save task</button>
     </div>
