@@ -4,20 +4,23 @@ import {useState} from 'react'
 import { IToDoItem } from "./ToDoItem.model";
 import { getAll } from './ToDoService'
 
-const NewAddTask = () =>{
+const NewAddTask = ({list} : {list: IToDoItem[]}) =>{
     const [title, setTitle] = useState('');
     const[description, setDescription] = useState('');
+    const[updatedList, setUpdatedList] = useState(getAll);
 
     
 
     const handleSubmit = (event) => {
-        console.log(title );
         // need to get previous id
         let lastIndex = getAll().length;
         let listid = lastIndex+1;
         const newItem: IToDoItem = { listid, title, description };
         add(newItem);
-        setList(getAll);
+        console.log(newItem+"hhhll");
+        
+        setUpdatedList(getAll);
+        list= updatedList;
     };
 
     

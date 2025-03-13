@@ -14,7 +14,6 @@ export function getAll(): IToDoItem[] {
 }
 
 export function add(item : IToDoItem){
-    console.log("add called");
     todoItems.push(item);
     console.log(todoItems);
     

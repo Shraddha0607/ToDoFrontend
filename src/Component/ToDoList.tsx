@@ -4,17 +4,18 @@ import { deleteItem, getAll } from './ToDoService'
 import { IToDoItem } from './ToDoItem.model';
 
 
-const ToDoList = () => {
-    const [list, setList] = useState(getAll());
+const ToDoList = ({list} :{list : IToDoItem[]}) => {
+    
+    const[updatedList, setUpdatedList] = useState(list);
 
     function OnClickHandle(id:number){
         deleteItem(id);
-        setList( getAll());
+        setUpdatedList( getAll());
     }
 
     return (
         <div>
-            {list.map( (item: IToDoItem) => {
+            {updatedList.map( (item: IToDoItem) => {
                 return (
                     <div>
                         <ToDoItem
