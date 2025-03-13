@@ -17,6 +17,7 @@ const NewAddTask = () =>{
         let listid = lastIndex+1;
         const newItem: IToDoItem = { listid, title, description };
         add(newItem);
+        setList(getAll);
     };
 
     
