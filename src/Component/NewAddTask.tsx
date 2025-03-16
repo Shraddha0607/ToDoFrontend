@@ -1,38 +1,28 @@
-import React from 'react'
-import { add, deleteItem } from './ToDoService';
-import {useState} from 'react'
+import { useState } from 'react'
 import { IToDoItem } from "./ToDoItem.model";
-import { getAll } from './ToDoService'
 
-const NewAddTask = ({list} : {list: IToDoItem[]}) =>{
+interface Props {
+    onAddHandler: any;
+}
+
+const NewAddTask = (props: Props) => {
     const [title, setTitle] = useState('');
-    const[description, setDescription] = useState('');
-    const[updatedList, setUpdatedList] = useState(getAll);
+    const [description, setDescription] = useState('');
 
-    
+    function onAddClick(event: any) {
+        const newTask: IToDoItem = { listid: 0, title: title, description: description };
+        props.onAddHandler(newTask);
+    }
 
-    const handleSubmit = (event) => {
-        // need to get previous id
-        let lastIndex = getAll().length;
-        let listid = lastIndex+1;
-        const newItem: IToDoItem = { listid, title, description };
-        add(newItem);
-        console.log(newItem+"hhhll");
-        
-        setUpdatedList(getAll);
-        list= updatedList;
-    };
+    return (
+        <div className='taskContainer'>
+            <input type="text" placeholder='add title' value={title} name="title" onChange={(event) => { setTitle(event.target.value) }}></input>
 
-    
-  return (
-    <div className='taskContainer'>
-      <input type="text" placeholder='add title' value={title} name="title" onChange={ (event) => {setTitle(event.target.value)}}></input> 
+            <input type="text" placeholder='add description' name="description" value={description} onChange={(event) => { setDescription(event.target.value) }} ></input>
 
-      <input type="text" placeholder='add description' name="description" value={description} onChange={ (event) => {setDescription(event.target.value)}} ></input> 
-      
-      <button onClick={handleSubmit}>Save task</button>
-    </div>
-  )
+            <button onClick={onAddClick}>Save task</button>
+        </div>
+    )
 }
 
 export default NewAddTask

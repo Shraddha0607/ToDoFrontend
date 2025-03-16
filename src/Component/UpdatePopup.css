@@ -1,12 +1,9 @@
-.to-do-item{
-    border: 1px black solid;
-}
-
-.popUpTaskContainer{
+.popup{
     height: 100vh;
     width: 100vw;
     z-index: 100;
     background-color: grey;
-    opacity: 0.50;
+    opacity: 10;
     position: absolute;
+    /* display: none; */
 }
