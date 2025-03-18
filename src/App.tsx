@@ -38,7 +38,7 @@ function App() {
   return (
     <>{
       requestType &&
-      <PopupWrapper visible={requestType !== undefined} onClickHandler={(e) => { if (e.target !== e.currentTarget) { setRequestType(undefined); } }}>
+      <PopupWrapper visible={requestType !== undefined} onClickHandler={(e) => { if (e.target === e.currentTarget) { setRequestType(undefined); } }}>
         <TaskAddEditForm onSubmitHandler={requestType === 'ADD' ? onAddHandler : onUpdateHandler} item={item} />
       </PopupWrapper>
     }

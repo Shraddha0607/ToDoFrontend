@@ -1,6 +1,6 @@
 import './ToDoItem.css'
 import { IToDoItem } from '../Models/ToDoItem.model';
-import Card from '../UI/Popup/Card/Card';
+import Card from '../UI/Card/Card';
 
 interface Props {
   todoItem: IToDoItem

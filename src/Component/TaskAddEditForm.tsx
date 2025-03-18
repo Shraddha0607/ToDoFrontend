@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { IToDoItem } from "../Models/ToDoItem.model";
 import './TaskAddEditForm.css'
-import Card from '../UI/Popup/Card/Card';
+import Card from '../UI/Card/Card';
 
 interface Props {
     onSubmitHandler: (item: IToDoItem) => void;
