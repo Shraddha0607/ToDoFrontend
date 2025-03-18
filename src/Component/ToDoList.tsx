@@ -1,19 +1,19 @@
 import ToDoItem from './ToDoItem'
-import { IToDoItem } from './ToDoItem.model';
+import { IToDoItem } from '../Models/ToDoItem.model';
 
 interface Props {
     items: IToDoItem[],
-    onDeleteHandler: any
-    onUpdateHandler: any
+    onDeleteClickHandler: (id: number) => void
+    onUpdateClickHandler: (item: IToDoItem) => void
 }
 
 const ToDoList = (props: Props) =>
     props.items.map((item: IToDoItem) =>
         <ToDoItem
+            key={item.id}
             todoItem={item}
-            onDeleteHandler={props.onDeleteHandler}
-            key={item.listid}
-            onUpdateHandler={props.onUpdateHandler}
+            onDeleteClickHandler={() => props.onDeleteClickHandler(item.id)}
+            onUpdateClickHandler={() => props.onUpdateClickHandler(item)}
         />
     )
 

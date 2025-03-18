@@ -1,24 +1,26 @@
 import './App.css'
-import NewAddTask from './Component/NewAddTask';
+import TaskAddEditForm from './Component/TaskAddEditForm';
 import ToDoList from './Component/ToDoList';
 import { useState } from 'react';
-import { getAll, deleteItem, add, updateItem } from './Component/ToDoService';
-import { IToDoItem } from './Component/ToDoItem.model';
-// import Popup from 'reactjs-popup';
-import UpdatePopup from './Component/UpdatePopup';
-import SimplePopup from './Component/UpdatePopup';
+import { getAll, deleteItem, add, updateItem } from './Services/ToDoService';
+import { IToDoItem } from './Models/ToDoItem.model';
+import PopupWrapper from './UI/Popup/PopupWrapper';
 
 function App() {
   const [list, setList] = useState(getAll());
-  const[isPopupOpen, setPopupOpen] = useState(false);
+  const [item, setItem] = useState<IToDoItem>();
+  const [requestType, setRequestType] = useState<'EDIT' | 'ADD' | undefined>(undefined);
+
+  function onUpdateClickHandler(item: IToDoItem) {
+    setItem(item);
+    setRequestType('EDIT');
+  }
 
   function onAddHandler(newTask: IToDoItem) {
     add(newTask);
-    console.log(list, "old state");
-    console.log("new data", getAll());
     setList(getAll());
-    console.log("new state ", list);
-
+    setItem(undefined);
+    setRequestType(undefined);
   };
 
   function onDeleteHandler(id: number) {
@@ -26,35 +28,27 @@ function App() {
     setList(getAll());
   }
 
-  function onUpdateHandler(id: number, updatedItem: IToDoItem) {
-    
-    // <UpdatePopup />
-    console.log(id, "called");
-    // const newTask: IToDoItem = { listid: 0, title: "title", description: "description" };
-
-    const updated : IToDoItem = updatedItem;
-    console.log("updated one" , updated);
-    // { listid: 1, title: "title1", description: "description1" };
-    updateItem(id, updated);
-    setPopupOpen(true);
-    console.log()
-    // return <UpdatePopup/>
-    return < SimplePopup/>
+  function onUpdateHandler(updatedItem: IToDoItem) {
+    updateItem(updatedItem);
+    setList(getAll());
+    setItem(undefined);
+    setRequestType(undefined);
   }
 
   return (
-    <>
-      <button>Add New</button>
-      < NewAddTask
-        onAddHandler={onAddHandler}
-      />
+    <>{
+      requestType &&
+      <PopupWrapper visible={requestType !== undefined} onClickHandler={(e) => { if (e.target !== e.currentTarget) { setRequestType(undefined); } }}>
+        <TaskAddEditForm onSubmitHandler={requestType === 'ADD' ? onAddHandler : onUpdateHandler} item={item} />
+      </PopupWrapper>
+    }
+
+      <button onClick={() => { setRequestType('ADD') }}>Add New</button>
       <ToDoList
         items={list}
-        onDeleteHandler={onDeleteHandler}
-        onUpdateHandler={onUpdateHandler}
+        onDeleteClickHandler={onDeleteHandler}
+        onUpdateClickHandler={onUpdateClickHandler}
       />
-      {/* if(isPopupOpen) && <UpdatePopup/> */}
-
     </>
   )
 }
